@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luciano.apimongo.domain.User;
+import com.luciano.apimongo.dto.UserDTO;
 import com.luciano.apimongo.repositories.UserRepository;
 import com.luciano.apimongo.services.exceptions.ObjectNotFoundException;
 
@@ -24,5 +25,12 @@ public class UserService {
 		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
 	}
-
+	
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	
+	public User fromDto(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+	}
 }
